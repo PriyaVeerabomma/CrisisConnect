@@ -1,0 +1,120 @@
+openapi: 3.0.0
+info:
+  title: Safe House Management API
+  description: CRUD operations for managing safe houses
+  version: 1.0.0
+servers:
+  - url: http://localhost:3001 
+paths:
+  /safehouses:
+    get:
+      summary: Retrieve a list of available safe houses
+      responses:
+        '200':
+          description: List of safe houses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SafeHouse'
+    post:
+      summary: Create a new safe house
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SafeHouse'
+      responses:
+        '201':
+          description: Safe house created successfully
+        '400':
+          description: Invalid request payload
+  /safehouses/{safehouse_id}:
+    parameters:
+      - in: path
+        name: safehouse_id
+        required: true
+        schema:
+          type: string
+        description: ID of the safe house to retrieve details
+    get:
+      summary: Retrieve details of a specific safe house
+      responses:
+        '200':
+          description: Safe house details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SafeHouse'
+        '404':
+          description: Safe house not found
+    put:
+      summary: Update safe house information
+      parameters:
+        - in: path
+          name: safehouse_id
+          required: true
+          schema:
+            type: string
+          description: ID of the safe house to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SafeHouse'
+      responses:
+        '200':
+          description: Safe house updated successfully
+        '404':
+          description: Safe house not found
+    delete:
+      summary: Delete a safe house
+      parameters:
+        - in: path
+          name: safehouse_id
+          required: true
+          schema:
+            type: string
+          description: ID of the safe house to delete
+      responses:
+        '204':
+          description: Safe house deleted successfully
+        '404':
+          description: Safe house not found
+components:
+  schemas:
+    SafeHouse:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Safe House A"
+        location:
+          type: string
+          example: "City, Country"
+        capacity:
+          type: integer
+          example: 50
+        currentOccupancy:
+          type: integer
+          example: 10
+      required:
+        - name
+        - location
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 404
+          description: Error code indicating the type of error
+        message:
+          type: string
+          example: "Safe house not found"
+          description: Human-readable error message
+      required:
+        - code
+        - message

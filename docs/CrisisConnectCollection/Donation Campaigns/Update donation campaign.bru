@@ -1,0 +1,22 @@
+meta {
+  name: Update donation campaign
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:3000/donation-campaigns/66198e4be1932515c256e9b7
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title": "Natural calamity Donation",
+    "currentAmount": 12,
+    "donorDetails" : {
+      "donor": "23432452",
+      "fundsPaid": 123424
+    }
+  }
+}

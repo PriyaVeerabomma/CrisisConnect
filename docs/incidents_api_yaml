@@ -1,0 +1,194 @@
+openapi: 3.1.0
+info:
+  title: Incident Resource API
+  description: REST API for managing incident reports
+  version: 'v1.0'
+servers:
+  - url: http://localhost:3001
+paths:
+  /incident:
+    post:
+      operationId: save-incident
+      summary: saves an incident
+      description: Allows users to create a new incident report.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - type
+                - location
+              $ref: '#/components/schemas/Incidents'
+      responses:
+        200:
+          description: Successfully saved
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/Incidents'
+        '401':
+          description: Bad request, missing or invalid parameters
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+    get:
+      operationId: get-incidents
+      summary: Retrieve a list of all reported incidents
+      description: |
+        This endpoint allows users to retrieve a list of all reported incidents.
+      responses:
+        '200':
+          description: List of reported incidents
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/GetAllIncidents'
+        '500':
+          description: Internal server error
+  /incidents/{incident_id}:
+    get:
+      operationId: get-incident
+      summary: Retrieve details of a specific incident
+      description: |
+        This endpoint allows users to retrieve details of a specific incident.
+      parameters:
+        - name: incident_id
+          in: path
+          required: true
+          description: The unique identifier for the incident report
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Details of the incident
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetIncident'
+        '404':
+          description: Incident not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IncidentNotFoundError'
+        '500':
+          description: Internal server error
+    put:
+      operationId: put-incident
+      summary: Update an existing incident
+      description: |
+        This endpoint allows admin to update an existing incident
+      parameters:
+        - name: incident_id
+          in: path
+          required: true
+          description: The unique identifier for the incident report
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Incidents'
+      responses:
+        '200':
+          description: Incident updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Incidents'
+        '400':
+          description: Bad request, missing or invalid parameters
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '404':
+          description: Incident not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IncidentNotFoundError'
+        '500':
+          description: Internal server error
+    delete:
+      operationId: delete-incident
+      summary: Delete an existing incident
+      description: |
+        This endpoint allows admin to delete an existing incident.
+      parameters:
+        - name: incident_id
+          in: path
+          required: true
+          description: The unique identifier for the incident report
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Incident deleted successfully
+        '404':
+          description: Incident not found
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    Incidents:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of incident.
+        location:
+          type: string
+          description: The location of the incident.
+    BadRequestError:
+      type: object
+      properties:
+        code: 
+          type: string
+          examples:
+            - Bad request
+        message:
+          type: string
+          examples:
+            - missing or invalid parameters.
+    GetAllIncidents:
+      type: array
+      items:
+        type: object
+        properties:
+          incident_id:
+            type: integer
+            description: The unique identifier for the incident report.
+          type:
+            type: string
+            description: The type of incident.
+          location:
+            type: string
+            description: The location of the incident.
+    GetIncident:
+      type: object
+      properties:
+        incident_id:
+          type: integer
+          description: The unique identifier for the incident report.
+        type:
+          type: string
+          description: The type of incident.
+        location:
+          type: string
+          description: The location of the incident.
+    IncidentNotFoundError:
+      type: object
+      properties:
+        code: 
+          type: string
+          examples:
+            - Incident Not Found
+        message:
+          type: string
+          examples:
+            - Incident Not Found.

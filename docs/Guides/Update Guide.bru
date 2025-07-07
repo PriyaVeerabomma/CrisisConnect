@@ -1,0 +1,20 @@
+meta {
+  name: Update Guide
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:3000/guides/
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+          "guideId": "507f191e810c19729de860eb",
+          "title": "Beginner's Guide to Urban Gardening",
+          "content": "Urban gardening is an enjoyable and fruitful endeavor that allows you to grow your own food in limited spaces. This guide will walk you through the basics of choosing soil, selecting plants, and maintaining your garden.1. Hello",
+          "created_date": "2023-03-28T14:15:00.000Z"
+      }
+}

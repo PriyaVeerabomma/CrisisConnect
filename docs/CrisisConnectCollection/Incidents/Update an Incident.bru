@@ -1,0 +1,34 @@
+meta {
+  name: Update an Incident
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:3000/incidents/6618085fcaa5d27207fec976
+  body: multipartForm
+  auth: none
+}
+
+body:json {
+  {
+    "type": "dummy",
+      "location": {
+        "city": "Boston",
+        "co_ordinates": {
+          "latitude": "1223",
+          "longitude": "12414"
+        }
+      },
+      "serverityLevel": "high",
+      "images": [],
+      "reportedBy": "6616d4fca0a66937e26f8991",
+      "timeReported": "2024-04-11T16:02:36.996Z",
+      "approvedStatus": false
+  }
+}
+
+body:multipart-form {
+  type: shooting - new
+  more_incident_files: @file()
+}

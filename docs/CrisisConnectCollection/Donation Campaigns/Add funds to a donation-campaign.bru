@@ -1,0 +1,20 @@
+meta {
+  name: Add funds to a donation-campaign
+  type: http
+  seq: 5
+}
+
+patch {
+  url: http://localhost:3000/donation-campaigns/add-funds/66198e4be1932515c256e9b7
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "target": 2000,
+    "title": "dummy test title",
+    "fundsReceived": 100,
+    "donorId": "6616d4fca0a66937e26f8991"
+  }
+}

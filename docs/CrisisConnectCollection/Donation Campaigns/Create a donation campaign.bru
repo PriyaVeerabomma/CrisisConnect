@@ -1,0 +1,21 @@
+meta {
+  name: Create a donation campaign
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/donation-campaigns
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title": "Donation for natural calamity",
+    "description": "This campaign has been raised to help the people who are affected by calamity",
+      "target": 10000,
+      "incident": "6618085fcaa5d27207fec976",
+      "donors": []
+  }
+}

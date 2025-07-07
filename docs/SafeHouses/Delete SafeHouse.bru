@@ -1,0 +1,29 @@
+meta {
+  name: Delete SafeHouse
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:3000/safehouses/661b3044c9666b17ea049337
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+          "name": "SafeHouse Gama",
+          "location": {
+              "coordinates": {
+                  "latitude": 40.7128,
+                  "longitude": -74.0060
+              }
+          },
+          "contactNo": "555-5678",
+          "capacity": 75,
+          "currentOccupancy": 48,
+          "incidents": [
+              "507f1f77bcf86cd799439013"
+          ]
+      }
+}

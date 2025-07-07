@@ -1,0 +1,29 @@
+meta {
+  name: Create SafeHouse
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/safehouses/
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+          "name": "SafeHouse Beta",
+          "location": {
+              "coordinates": {
+                  "latitude": 40.7128,
+                  "longitude": -74.0060
+              }
+          },
+          "contactNo": "555-5678",
+          "capacity": 75,
+          "currentOccupancy": 48,
+          "incidents": [
+              "507f1f77bcf86cd799439013"
+          ]
+      }
+}
